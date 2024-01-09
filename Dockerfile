@@ -27,21 +27,24 @@ RUN apt-get update && \
     git && \
     rm -rf /var/lib/apt/lists/*
 
+# Downloading Files
+RUN wget https://cmake.org/files/v3.28/cmake-3.28.1.tar.gz && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin && \
+    wget https://developer.download.nvidia.com/compute/cuda/12.3.2/local_installers/cuda-repo-ubuntu2004-12-3-local_12.3.2-545.23.08-1_amd64.deb
+
 # Installing Cmake
 RUN version=3.28 && \
     build=1 && \
-    mkdir temp && cd temp && \
-    wget https://cmake.org/files/v3.28/cmake-3.28.1.tar.gz && \
-    cd /firefly/temp && tar -xzvf cmake-3.28.1.tar.gz && cd /firefly/temp/cmake-3.28.1/ && ./bootstrap && make -j$(nproc) && make install
+    tar -xzvf cmake-3.28.1.tar.gz && cd /firefly/temp/cmake-3.28.1/ && ./bootstrap && make -j$(nproc) && make install
 
 # Installing cuda
-RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin && \
-    mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600 && \
-    wget https://developer.download.nvidia.com/compute/cuda/12.3.2/local_installers/cuda-repo-ubuntu2004-12-3-local_12.3.2-545.23.08-1_amd64.deb && \
+RUN mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600 && \
     dpkg -i cuda-repo-ubuntu2004-12-3-local_12.3.2-545.23.08-1_amd64.deb && \
     mv /var/cuda-repo-ubuntu2004-12-3-local/cuda-*-keyring.gpg /usr/share/keyrings/ && \
     apt-get install -y cuda-toolkit-12-3 && \
     rm -rf /var/lib/apt/lists/*
+
+RUN rm -rf cmake-3.28.1.tar.gz
 
 # Set environment variables for CUDA
 ENV PATH="/usr/local/cuda/bin:${PATH}"
