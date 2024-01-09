@@ -40,7 +40,7 @@ RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86
     mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600 && \
     dpkg -i cuda-repo-ubuntu2004-12-3-local_12.3.2-545.23.08-1_amd64.deb && \
     mv /var/cuda-repo-ubuntu2004-12-3-local/cuda-*-keyring.gpg /usr/share/keyrings/ && \
-    apt-get update && apt-get install -y cuda-toolkit-12-3 && \
+    apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y cuda-toolkit-12-3 && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf cuda-repo-ubuntu2004-12-3-local_12.3.2-545.23.08-1_amd64.deb && \ 
     apt-get clean
