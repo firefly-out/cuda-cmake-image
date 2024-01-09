@@ -46,7 +46,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPOSITORY }}:main-${{ steps.commit.outputs.short }}
-          labels: 
-            - "ubuntu:20.04"
-            - "cuda 12.3"
-            - "cmake 3.28"
+          labels: [ "ubuntu:20.04", "cuda 12.3", "cmake 3.28" ]
