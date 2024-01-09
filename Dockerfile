@@ -40,7 +40,7 @@ RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86
     wget https://developer.download.nvidia.com/compute/cuda/12.3.2/local_installers/cuda-repo-ubuntu2004-12-3-local_12.3.2-545.23.08-1_amd64.deb && \
     dpkg -i cuda-repo-ubuntu2004-12-3-local_12.3.2-545.23.08-1_amd64.deb && \
     mv /var/cuda-repo-ubuntu2004-12-3-local/cuda-*-keyring.gpg /usr/share/keyrings/ && \
-    apt-get -y install cuda-toolkit-12-3 && \
+    apt-get install -y cuda-toolkit-12-3 && \
     rm -rf /var/lib/apt/lists/*
 
 # Set environment variables for CUDA
